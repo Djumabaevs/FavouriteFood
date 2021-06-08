@@ -1,8 +1,13 @@
 package com.bignerdranch.android.favouritefood.view.activities
 
+import android.app.AlertDialog
 import android.app.Dialog
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import com.bignerdranch.android.favouritefood.R
@@ -90,6 +95,26 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun showRationalDialogForPermissions() {
+        AlertDialog
+            .Builder(this)
+            .setMessage("It looks like you have turned off permissions" +
+        " required for this feature. It can be enabled under Application settings")
+            .setPositiveButton("Go to settings") {
+                _,_ ->
+                    try {
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        val uri = Uri.fromParts("package", packageName, null)
+                        intent.data = uri
+                        startActivity(intent)
+                    } catch (e: ActivityNotFoundException) {
+                        e.printStackTrace()
+
+                 }
+            }
+            .setNegativeButton("Cancel") {
+                dialog,_ ->
+                dialog.dismiss()
+            }.show()
 
     }
 }
