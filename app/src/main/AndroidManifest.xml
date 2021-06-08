@@ -10,13 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FavouriteFood">
         <activity android:name=".view.activities.AddUpdateDishActivity"
-            android:theme="@style/Theme.FavouriteFood"
-            android:label="Add Dish">
+            android:theme="@style/CustomToolbarStyle"
+            android:label="Add Dish"
+            android:configChanges="orientation">
 
         </activity>
         <activity
             android:name=".view.activities.SplashActivity"
-            android:theme="@style/Theme.FavouriteFood">
+            android:theme="@style/CustomToolbarStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +26,7 @@
         </activity>
         <activity
             android:name=".view.activities.MainActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_main"/>
     </application>
 
 </manifest>

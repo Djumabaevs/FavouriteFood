@@ -16,4 +16,9 @@
 <!--        <item name="windowNoTitle">true</item>-->
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="CustomToolbarStyle" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/dark_green_200</item>
+        <item name="android:colorControlNormal">#ffffff</item>
+    </style>
 </resources>
