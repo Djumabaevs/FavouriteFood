@@ -16,8 +16,11 @@ import com.bignerdranch.android.favouritefood.databinding.DialogCustomImageSelec
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.karumi.dexter.listener.single.PermissionListener
 import java.util.jar.Manifest
 
 class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
@@ -51,6 +54,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+
+
     private fun customImageSelectionDialog() {
         val dialog = Dialog(this)
         val binding: DialogCustomImageSelectionBinding =
@@ -59,16 +64,17 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.tvCamera.setOnClickListener {
 
-            Dexter.withContext(this).withPermissions(
+            Dexter.withContext(this@AddUpdateDishActivity).withPermissions(
                 android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.CAMERA
             ).withListener(object: MultiplePermissionsListener {
 
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                    if(report!!.areAllPermissionsGranted()) {
-                        Toast.makeText(this@AddUpdateDishActivity,
-                        "You have camera permission.", Toast.LENGTH_SHORT).show()
+                    report?.let {
+                        if(report.areAllPermissionsGranted()) {
+                            Toast.makeText(this@AddUpdateDishActivity,
+                                "You have Camera permission.", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
 
@@ -76,23 +82,51 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                     permissions: MutableList<PermissionRequest>?,
                     token: PermissionToken?
                 ) {
-
+                    showRationalDialogForPermissions()
                 }
             }
 
             ).onSameThread().check()
 
             dialog.dismiss()
+
         }
+
+
         binding.tvGallery.setOnClickListener {
 
+            Dexter.withContext(this@AddUpdateDishActivity).withPermission(
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ).withListener(object: PermissionListener {
+                override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
+                    Toast.makeText(this@AddUpdateDishActivity,
+                        "You have Gallery permission to select an image.", Toast.LENGTH_SHORT).show()
+                }
 
+                override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+                    Toast.makeText(this@AddUpdateDishActivity,
+                        "You denied Gallery permission to select an image.", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    p0: PermissionRequest?,
+                    p1: PermissionToken?
+                ) {
+                    showRationalDialogForPermissions()
+                }
+
+
+            }
+
+            ).onSameThread().check()
 
             dialog.dismiss()
         }
 
         dialog.show()
     }
+
+
 
     private fun showRationalDialogForPermissions() {
         AlertDialog
