@@ -1,11 +1,13 @@
 package com.bignerdranch.android.favouritefood.view.activities
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.databinding.ActivityAddUpdateDishBinding
+import com.bignerdranch.android.favouritefood.databinding.DialogCustomImageSelectionBinding
 
 class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityAddUpdateDishBinding
@@ -36,5 +38,13 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun customImageSelectionDialog() {
+        val dialog = Dialog(this)
+        val binding: DialogCustomImageSelectionBinding =
+            DialogCustomImageSelectionBinding.inflate(layoutInflater)
+        dialog.setContentView(binding.root)
+
     }
 }
