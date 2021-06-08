@@ -1,15 +1,20 @@
 package com.bignerdranch.android.favouritefood.view.activities
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.databinding.ActivityAddUpdateDishBinding
 import com.bignerdranch.android.favouritefood.databinding.DialogCustomImageSelectionBinding
@@ -25,6 +30,16 @@ import java.util.jar.Manifest
 
 class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityAddUpdateDishBinding
+
+    private val contractCamera = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult? ->
+        if(result?.resultCode == Activity.RESULT_OK) {
+            result.data?.extras?.let {
+                val thumbnail: Bitmap = result.data!!.extras!!.get("data") as Bitmap
+                mBinding.ivDishImage.setImageBitmap(thumbnail)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,8 +87,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     report?.let {
                         if(report.areAllPermissionsGranted()) {
-                            Toast.makeText(this@AddUpdateDishActivity,
-                                "You have Camera permission.", Toast.LENGTH_SHORT).show()
+                         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
                         }
                     }
                 }
@@ -151,4 +166,5 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
             }.show()
 
     }
+
 }
