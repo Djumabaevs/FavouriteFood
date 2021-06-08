@@ -15,9 +15,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.databinding.ActivityAddUpdateDishBinding
 import com.bignerdranch.android.favouritefood.databinding.DialogCustomImageSelectionBinding
+import com.bumptech.glide.Glide
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -36,7 +38,35 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         if(result?.resultCode == Activity.RESULT_OK) {
             result.data?.extras?.let {
                 val thumbnail: Bitmap = result.data!!.extras!!.get("data") as Bitmap
-                mBinding.ivDishImage.setImageBitmap(thumbnail)
+              /*  mBinding.ivDishImage
+                    .setImageBitmap(thumbnail)*/
+                Glide
+                    .with(this)
+                    .load(thumbnail)
+                    .centerCrop()
+                    .into(mBinding.ivDishImage)
+
+                mBinding.ivAddDishImage
+                    .setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_vector_edit))
+            }
+        }
+    }
+
+    private val contractGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult? ->
+        if(result?.resultCode == Activity.RESULT_OK) {
+            result.data?.let {
+                val selectedPhotoUri = result.data!!.data
+                /*mBinding.ivDishImage
+                    .setImageURI(selectedPhotoUri)*/
+                Glide
+                    .with(this)
+                    .load(selectedPhotoUri)
+                    .centerCrop()
+                    .into(mBinding.ivDishImage)
+
+                mBinding.ivAddDishImage
+                    .setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_vector_edit))
             }
         }
     }
@@ -88,7 +118,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                     report?.let {
                         if(report.areAllPermissionsGranted()) {
                          val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
+                            contractCamera.launch(intent)
                         }
                     }
                 }
@@ -114,8 +144,9 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 android.Manifest.permission.READ_EXTERNAL_STORAGE
             ).withListener(object: PermissionListener {
                 override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
-                    Toast.makeText(this@AddUpdateDishActivity,
-                        "You have Gallery permission to select an image.", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                    contractGallery.launch(intent)
                 }
 
                 override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
