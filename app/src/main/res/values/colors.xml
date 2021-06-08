@@ -19,4 +19,8 @@
     <color name="primaryLightColor">#5ddef4</color>
     <color name="primaryDarkColor">#007c91</color>
     <color name="primaryTextColor">#000000</color>
+    
+    <color name="dish_background_color">#e1e1e1</color>
+    <color name="blue_gray_700">#37474f</color>
+    <color name="grey_900">#212121</color>
 </resources>
