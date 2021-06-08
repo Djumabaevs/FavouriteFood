@@ -11,9 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.viewmodel.HomeViewModel
 
-class HomeFragment : Fragment() {
+class AllDishesFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,7 +27,7 @@ class HomeFragment : Fragment() {
     ): View? {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.fragment_all_dishes, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
