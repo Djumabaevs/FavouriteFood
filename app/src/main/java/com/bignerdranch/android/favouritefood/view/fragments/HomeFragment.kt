@@ -1,4 +1,4 @@
-package com.bignerdranch.android.favouritefood.ui.home
+package com.bignerdranch.android.favouritefood.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.favouritefood.R
+import com.bignerdranch.android.favouritefood.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
 

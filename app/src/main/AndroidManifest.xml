@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FavouriteFood">
-        <activity android:name=".SplashActivity"
+        <activity android:name=".view.activities.SplashActivity"
             android:theme="@style/Theme.FavouriteFood">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.activities.MainActivity"
             android:label="@string/title_activity_main">
         </activity>
     </application>
