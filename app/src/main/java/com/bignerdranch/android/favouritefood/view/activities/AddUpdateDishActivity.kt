@@ -21,9 +21,11 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.databinding.ActivityAddUpdateDishBinding
 import com.bignerdranch.android.favouritefood.databinding.DialogCustomImageSelectionBinding
+import com.bignerdranch.android.favouritefood.databinding.DialogCustomListBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -261,6 +263,18 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         return file.absolutePath
+    }
+
+    private fun customItemsDialog(title: String, itemsList: List<String>, selection: String) {
+        val customListDialog = Dialog(this)
+        val binding: DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
+
+        customListDialog.setContentView(binding.root)
+
+        binding.tvTitle.text = title
+        binding.rvList.layoutManager = LinearLayoutManager(this)
+
+
     }
 
     companion object {
