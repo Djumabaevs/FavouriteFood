@@ -104,8 +104,9 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                             resource?.let {
                                 val bitmap: Bitmap = resource.toBitmap()
                                 mImagePath = saveImageToInternalStorage(bitmap)
-                                return false
+                                Log.i("Tag",mImagePath)
                             }
+                            return false
                         }
 
                     })
