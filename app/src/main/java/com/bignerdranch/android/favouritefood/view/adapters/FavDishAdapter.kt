@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.favouritefood.databinding.ItemDishLayoutBinding
 import com.bignerdranch.android.favouritefood.model.entities.FavDish
+import com.bumptech.glide.Glide
 
 class FavDishAdapter(private val fragment: Fragment) :
 RecyclerView.Adapter<FavDishAdapter.ViewHolder>()
@@ -21,7 +22,11 @@ private var dishes: List<FavDish> = listOf()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        val dish = dishes[position]
+        Glide
+            .with(fragment)
+            .load(dish.image)
+            .into(holder.ivDishImage)
     }
 
     override fun getItemCount(): Int {
