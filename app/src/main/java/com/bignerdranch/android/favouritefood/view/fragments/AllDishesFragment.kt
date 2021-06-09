@@ -70,7 +70,8 @@ class AllDishesFragment : Fragment() {
 
                     favDishAdapter.dishesList(it)
                 } else {
-
+                    mBinding.rvDishesList.visibility = View.GONE
+                    mBinding.tvNoDishesAddedYet.visibility = View.VISIBLE
                 }
 
                /* for(item in it) {
