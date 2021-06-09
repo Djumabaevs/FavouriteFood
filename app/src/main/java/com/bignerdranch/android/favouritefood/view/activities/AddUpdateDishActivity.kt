@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.databinding.ActivityAddUpdateDishBinding
 import com.bignerdranch.android.favouritefood.databinding.DialogCustomImageSelectionBinding
@@ -89,7 +90,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                             target: Target<Drawable>?,
                             isFirstResource: Boolean
                         ): Boolean {
-
+                            Log.e("Tag","Error loading image",e)
+                            return false
                         }
 
                         override fun onResourceReady(
@@ -99,7 +101,11 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                             dataSource: DataSource?,
                             isFirstResource: Boolean
                         ): Boolean {
-
+                            resource?.let {
+                                val bitmap: Bitmap = resource.toBitmap()
+                                mImagePath = saveImageToInternalStorage(bitmap)
+                                return false
+                            }
                         }
 
                     })
