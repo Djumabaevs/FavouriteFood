@@ -52,6 +52,7 @@ import java.util.jar.Manifest
 class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityAddUpdateDishBinding
     private var mImagePath: String = ""
+    private lateinit var mCustomListDialog: Dialog
 
     private val contractCamera = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult? ->
@@ -182,10 +183,10 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun customImageSelectionDialog() {
-        val dialog = Dialog(this)
+        mCustomListDialog = Dialog(this)
         val binding: DialogCustomImageSelectionBinding =
             DialogCustomImageSelectionBinding.inflate(layoutInflater)
-        dialog.setContentView(binding.root)
+        mCustomListDialog.setContentView(binding.root)
 
         binding.tvCamera.setOnClickListener {
 
@@ -213,7 +214,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
             ).onSameThread().check()
 
-            dialog.dismiss()
+            mCustomListDialog.dismiss()
 
         }
 
@@ -246,10 +247,10 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
             ).onSameThread().check()
 
-            dialog.dismiss()
+            mCustomListDialog.dismiss()
         }
 
-        dialog.show()
+        mCustomListDialog.show()
     }
 
 
@@ -294,6 +295,23 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         return file.absolutePath
+    }
+
+     fun selectedListItem(item: String, selection: String) {
+        when(selection) {
+            Constants.DISH_TYPE -> {
+                mCustomListDialog.dismiss()
+                mBinding.etType.setText(item)
+            }
+            Constants.DISH_CATEGORY -> {
+                mCustomListDialog.dismiss()
+                mBinding.etCategory.setText(item)
+            }
+            Constants.DISH_COOKING_TIME -> {
+                mCustomListDialog.dismiss()
+                mBinding.etCookingTime.setText(item)
+            }
+        }
     }
 
     private fun customItemsListDialog(title: String, itemsList: List<String>, selection: String) {
