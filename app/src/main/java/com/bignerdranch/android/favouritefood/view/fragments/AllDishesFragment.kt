@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.application.FavDishApplication
+import com.bignerdranch.android.favouritefood.databinding.FragmentAllDishesBinding
 import com.bignerdranch.android.favouritefood.view.activities.AddUpdateDishActivity
 import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModel
 import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModelFactory
@@ -18,7 +19,9 @@ import com.bignerdranch.android.favouritefood.viewmodel.HomeViewModel
 
 class AllDishesFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+//    private lateinit var homeViewModel: HomeViewModel
+
+    private lateinit var mBinding: FragmentAllDishesBinding
 
     private val mFavDishViewModel: FavDishViewModel by viewModels {
         FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
@@ -34,14 +37,18 @@ class AllDishesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_all_dishes, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+
+        mBinding = FragmentAllDishesBinding.inflate(inflater, container, false)
+
+
+         /*   homeViewModel =
+                ViewModelProvider(this).get(HomeViewModel::class.java)
+            val root = inflater.inflate(R.layout.fragment_all_dishes, container, false)
+            val textView: TextView = root.findViewById(R.id.text_home)
+            homeViewModel.text.observe(viewLifecycleOwner, Observer {
+                textView.text = it
+            })*/
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
