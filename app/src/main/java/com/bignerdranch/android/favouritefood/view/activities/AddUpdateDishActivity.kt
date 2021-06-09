@@ -32,6 +32,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.io.OutputStream
 import java.util.*
 import java.util.jar.Manifest
@@ -213,8 +214,13 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         try {
             val stream: OutputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-
+            stream.flush()
+            stream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
+
+        return file.absolutePath
     }
 
     companion object {
