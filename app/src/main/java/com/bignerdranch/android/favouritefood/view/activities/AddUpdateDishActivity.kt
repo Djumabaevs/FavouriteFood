@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -28,6 +30,10 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
+import java.util.*
 import java.util.jar.Manifest
 
 class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
@@ -196,6 +202,23 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 dialog.dismiss()
             }.show()
 
+    }
+
+    private fun saveImageToInternalStorage(bitmap: Bitmap) : String {
+        val wrapper = ContextWrapper(applicationContext)
+
+        var file = wrapper.getDir(IMAGES_DIRECTORY, Context.MODE_PRIVATE)
+        file = File(file, "${UUID.randomUUID()}.jpg")
+
+        try {
+            val stream: OutputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+
+        }
+    }
+
+    companion object {
+        private const val IMAGES_DIRECTORY = "FavDishImages"
     }
 
 }
