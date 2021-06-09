@@ -5,15 +5,23 @@ import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.favouritefood.R
+import com.bignerdranch.android.favouritefood.application.FavDishApplication
 import com.bignerdranch.android.favouritefood.view.activities.AddUpdateDishActivity
+import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModel
+import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModelFactory
 import com.bignerdranch.android.favouritefood.viewmodel.HomeViewModel
 
 class AllDishesFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+
+    private val mFavDishViewModel: FavDishViewModel by viewModels {
+        FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
