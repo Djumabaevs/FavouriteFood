@@ -15,6 +15,7 @@ import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.application.FavDishApplication
 import com.bignerdranch.android.favouritefood.databinding.FragmentAllDishesBinding
 import com.bignerdranch.android.favouritefood.view.activities.AddUpdateDishActivity
+import com.bignerdranch.android.favouritefood.view.activities.MainActivity
 import com.bignerdranch.android.favouritefood.view.adapters.FavDishAdapter
 import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModel
 import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModelFactory
@@ -84,6 +85,17 @@ class AllDishesFragment : Fragment() {
 
     fun dishDetails() {
         findNavController().navigate(AllDishesFragmentDirections.actionNavigationAllDishesToNavigationDishDetails())
+
+        if(requireActivity() is MainActivity) {
+            (activity as MainActivity?)?.hideBottomNavigationView()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(requireActivity() is MainActivity) {
+            (activity as MainActivity?)?.showBottomNavigationView()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
