@@ -8,11 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
 import com.bignerdranch.android.favouritefood.R
+import com.bignerdranch.android.favouritefood.application.FavDishApplication
 import com.bignerdranch.android.favouritefood.databinding.FragmentDishDetailsBinding
+import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModel
+import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -25,6 +29,10 @@ import java.util.*
 class DishDetailsFragment : Fragment() {
 
     private var mBinding: FragmentDishDetailsBinding? = null
+
+    private val mFavDishViewModel: FavDishViewModel by viewModels {
+        FavDishViewModelFactory(((requireActivity()).application as FavDishApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,6 +105,10 @@ class DishDetailsFragment : Fragment() {
 
      /*   Log.i("Dish title", args.dishDetails.title)
         Log.i("Dish type", args.dishDetails.type)*/
+
+        mBinding!!.ivFavoriteDish.setOnClickListener {
+
+        }
     }
 
     override fun onDestroy() {
