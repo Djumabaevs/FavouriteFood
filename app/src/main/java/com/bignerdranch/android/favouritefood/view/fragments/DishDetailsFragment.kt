@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
@@ -107,7 +109,24 @@ class DishDetailsFragment : Fragment() {
         Log.i("Dish type", args.dishDetails.type)*/
 
         mBinding!!.ivFavoriteDish.setOnClickListener {
+            args.dishDetails.favoriteDish = !args.dishDetails.favoriteDish
+            mFavDishViewModel.update(args.dishDetails)
 
+            if(args.dishDetails.favoriteDish) {
+                mBinding!!.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(
+                    requireActivity(),
+                    R.drawable.ic_favorite_selected
+                ))
+                Toast.makeText(requireActivity(),resources.getString(R.string.msg_added_to_favorite),
+                Toast.LENGTH_SHORT).show()
+            } else {
+                mBinding!!.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(
+                    requireActivity(),
+                    R.drawable.ic_favorite_unselected
+                ))
+                Toast.makeText(requireActivity(),resources.getString(R.string.msg_removed_from_favorite),
+                    Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

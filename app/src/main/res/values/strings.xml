@@ -33,5 +33,7 @@
     <string name="title_dish_details">Dish Details</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lbl_estimate_cooking_time">The approx time required to cook the dish is %1$s minutes.</string>
+    <string name="msg_added_to_favorite">IMAGE is Favorite!</string>
+    <string name="msg_removed_from_favorite">IMAGE is removed from Favorite!</string>
 
 </resources>
