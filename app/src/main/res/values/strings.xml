@@ -39,5 +39,8 @@
     <string name="image_description">image_description</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="title_add_dish">Add Dish</string>
+    <string name="title_edit_dish">Edit Dish</string>
+    <string name="lbl_update_dish">UPDATE DISH</string>
 
 </resources>

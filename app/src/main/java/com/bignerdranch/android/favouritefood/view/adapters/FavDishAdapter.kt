@@ -1,5 +1,6 @@
 package com.bignerdranch.android.favouritefood.view.adapters
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.databinding.ItemDishLayoutBinding
 import com.bignerdranch.android.favouritefood.model.entities.FavDish
+import com.bignerdranch.android.favouritefood.utils.Constants
+import com.bignerdranch.android.favouritefood.view.activities.AddUpdateDishActivity
 import com.bignerdranch.android.favouritefood.view.fragments.AllDishesFragment
 import com.bignerdranch.android.favouritefood.view.fragments.FavoriteDishesFragment
 import com.bumptech.glide.Glide
@@ -55,9 +58,15 @@ private var dishes: List<FavDish> = listOf()
 
             popup.setOnMenuItemClickListener {
                 if(it.itemId == R.id.action_edit_dish) {
-                    Log.i("Menu", "Edit button of ${dish.title}")
+                    val intent = Intent(fragment.requireActivity(), AddUpdateDishActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_DISH_DETAILS, dish)
+                    fragment.requireActivity().startActivity(intent)
+
+//                    Log.i("Menu", "Edit button of ${dish.title}")
                 } else if(it.itemId == R.id.action_delete_dish) {
-                    Log.i("Menu","Delete button of ${dish.title}")
+
+
+//                    Log.i("Menu","Delete button of ${dish.title}")
                 }
                 true
             }
