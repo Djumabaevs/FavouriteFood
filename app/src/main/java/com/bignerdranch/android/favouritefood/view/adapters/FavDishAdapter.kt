@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.favouritefood.databinding.ItemDishLayoutBinding
 import com.bignerdranch.android.favouritefood.model.entities.FavDish
 import com.bignerdranch.android.favouritefood.view.fragments.AllDishesFragment
+import com.bignerdranch.android.favouritefood.view.fragments.FavoriteDishesFragment
 import com.bumptech.glide.Glide
 
 class FavDishAdapter(private val fragment: Fragment) :
@@ -36,6 +37,9 @@ private var dishes: List<FavDish> = listOf()
 
         holder.itemView.setOnClickListener {
             if(fragment is AllDishesFragment) {
+                fragment.dishDetails(dish)
+            }
+            if(fragment is FavoriteDishesFragment) {
                 fragment.dishDetails(dish)
             }
         }

@@ -10,10 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.application.FavDishApplication
 import com.bignerdranch.android.favouritefood.databinding.FragmentFavoriteDishesBinding
+import com.bignerdranch.android.favouritefood.model.entities.FavDish
+import com.bignerdranch.android.favouritefood.view.activities.MainActivity
 import com.bignerdranch.android.favouritefood.view.adapters.FavDishAdapter
 import com.bignerdranch.android.favouritefood.viewmodel.DashboardViewModel
 import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModel
@@ -66,6 +69,24 @@ class FavoriteDishesFragment : Fragment() {
 //                    Log.i("List of favorite dishes is ", "empty")
                 }
             }
+        }
+    }
+
+    fun dishDetails(favDish: FavDish) {
+
+        findNavController()
+            .navigate(FavoriteDishesFragmentDirections
+                .actionNavigationFavoriteDishesToNavigationDishDetails(favDish))
+
+        if(requireActivity() is MainActivity) {
+            (activity as MainActivity?)!!.hideBottomNavigationView()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(requireActivity() is MainActivity) {
+            (activity as MainActivity?)!!.showBottomNavigationView()
         }
     }
 
