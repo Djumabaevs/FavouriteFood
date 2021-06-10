@@ -17,4 +17,6 @@ class FavDishRepository(private val favDishDao: FavDishDAO) {
     suspend fun updateFavDishData(favDish: FavDish) {
         favDishDao.updateFavDishDetails(favDish)
     }
+
+    val favDishList: Flow<List<FavDish>> = favDishDao.getFavoriteDishList()
 }

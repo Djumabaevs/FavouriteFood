@@ -103,6 +103,18 @@ class DishDetailsFragment : Fragment() {
             mBinding!!.tvCookingDirection.text = it.dishDetails.directionsToCook
             mBinding!!.tvCookingTime.text =
                 resources.getString(R.string.lbl_estimate_cooking_time, it.dishDetails.cookingTime)
+
+            if(args.dishDetails.favoriteDish) {
+                mBinding!!.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(
+                    requireActivity(),
+                    R.drawable.ic_favorite_selected
+                ))
+            } else {
+                mBinding!!.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(
+                    requireActivity(),
+                    R.drawable.ic_favorite_unselected
+                ))
+            }
         }
 
      /*   Log.i("Dish title", args.dishDetails.title)

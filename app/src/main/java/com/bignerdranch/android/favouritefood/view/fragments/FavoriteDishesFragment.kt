@@ -6,14 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.favouritefood.R
+import com.bignerdranch.android.favouritefood.application.FavDishApplication
 import com.bignerdranch.android.favouritefood.viewmodel.DashboardViewModel
+import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModel
+import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModelFactory
 
 class FavoriteDishesFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
+
+    private val mFavDishViewModel: FavDishViewModel by viewModels {
+        FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,5 +36,13 @@ class FavoriteDishesFragment : Fragment() {
             textView.text = it
         })
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mFavDishViewModel.favoriteDishes.observe(viewLifecycleOwner) {
+
+        }
     }
 }
