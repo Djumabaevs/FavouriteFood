@@ -35,5 +35,6 @@
     <string name="lbl_estimate_cooking_time">The approx time required to cook the dish is %1$s minutes.</string>
     <string name="msg_added_to_favorite">IMAGE is Favorite!</string>
     <string name="msg_removed_from_favorite">IMAGE is removed from Favorite!</string>
+    <string name="label_no_favorite_dishes_added_yet">No favorite dishes added yet!!!</string>
 
 </resources>
