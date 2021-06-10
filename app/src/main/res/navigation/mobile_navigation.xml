@@ -31,6 +31,11 @@
         android:id="@+id/navigation_dish_details"
         android:name="com.bignerdranch.android.favouritefood.view.fragments.DishDetailsFragment"
         android:label="@string/title_dish_details"
-        tools:layout="@layout/fragment_dish_details"/>
+        tools:layout="@layout/fragment_dish_details">
+        <argument
+            android:name="dishDetails"
+            app:argType="com.bignerdranch.android.favouritefood.model.entities.FavDish"/>
+
+    </fragment>
 
 </navigation>
