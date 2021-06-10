@@ -30,5 +30,7 @@
     <string name="err_msg_select_dish_cooking_time">Select dish cooking time.</string>
     <string name="err_msg_enter_dish_cooking_instructions">Enter dish cooking instructions.</string>
     <string name="label_no_dishes_added_yet">No dishes added yet!!!</string>
+    <string name="title_dish_details">Dish Details</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

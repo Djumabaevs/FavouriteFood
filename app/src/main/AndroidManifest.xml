@@ -34,7 +34,7 @@
         </activity>
         <activity
             android:name=".view.activities.MainActivity"
-            android:label="@string/title_activity_main"/>
+            android:label="@string/title_all_dishes"/>
     </application>
 
 </manifest>
