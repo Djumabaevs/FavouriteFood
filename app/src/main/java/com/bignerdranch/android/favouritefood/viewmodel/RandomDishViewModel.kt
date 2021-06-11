@@ -3,6 +3,7 @@ package com.bignerdranch.android.favouritefood.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.bignerdranch.android.favouritefood.model.entities.RandomDish
 import com.bignerdranch.android.favouritefood.model.network.RandomDishApiService
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
