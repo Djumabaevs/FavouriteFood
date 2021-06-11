@@ -9,13 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.application.FavDishApplication
 import com.bignerdranch.android.favouritefood.databinding.DialogCustomListBinding
 import com.bignerdranch.android.favouritefood.databinding.FragmentAllDishesBinding
 import com.bignerdranch.android.favouritefood.model.entities.FavDish
+import com.bignerdranch.android.favouritefood.utils.Constants
 import com.bignerdranch.android.favouritefood.view.activities.AddUpdateDishActivity
 import com.bignerdranch.android.favouritefood.view.activities.MainActivity
+import com.bignerdranch.android.favouritefood.view.adapters.CustomListItemAdapter
 import com.bignerdranch.android.favouritefood.view.adapters.FavDishAdapter
 import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModel
 import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModelFactory
@@ -114,7 +117,14 @@ class AllDishesFragment : Fragment() {
         val binding: DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
         customListDialog.setContentView(binding.root)
 
+        binding.tvTitle.text = resources.getString(R.string.title_select_item_to_filter)
+        val dishTypes = Constants.dishTypes()
+        dishTypes.add(0, Constants.ALL_ITEMS)
 
+        binding.rvList.layoutManager = LinearLayoutManager(requireActivity())
+        val adapter = CustomListItemAdapter(requireActivity(), dishTypes, Constants.FILTER_SELECTION)
+        binding.rvList.adapter = adapter
+        customListDialog.show()
     }
 
     override fun onResume() {
