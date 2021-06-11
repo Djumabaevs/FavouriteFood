@@ -127,7 +127,7 @@ class AllDishesFragment : Fragment() {
         dishTypes.add(0, Constants.ALL_ITEMS)
 
         binding.rvList.layoutManager = LinearLayoutManager(requireActivity())
-        val adapter = CustomListItemAdapter(requireActivity(), dishTypes, Constants.FILTER_SELECTION)
+        val adapter = CustomListItemAdapter(requireActivity(), this, dishTypes, Constants.FILTER_SELECTION)
         binding.rvList.adapter = adapter
         mCustomListDialog.show()
     }
@@ -179,6 +179,8 @@ class AllDishesFragment : Fragment() {
                     }
                 }
             }
+        } else {
+            Log.i("Filter list", "Selected")
         }
     }
 }
