@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -156,5 +157,28 @@ class AllDishesFragment : Fragment() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun filterSelection(filterItemSelection: String) {
+        mCustomListDialog.dismiss()
+        Log.i("Filter", filterItemSelection)
+
+        if(filterItemSelection == Constants.ALL_ITEMS) {
+            mFavDishViewModel.allDishesList.observe(viewLifecycleOwner) {
+                    dishes ->
+                dishes.let {
+
+                    if(it.isNotEmpty()) {
+                        mBinding.rvDishesList.visibility = View.VISIBLE
+                        mBinding.tvNoDishesAddedYet.visibility = View.GONE
+
+                        mFavDishAdapter.dishesList(it)
+                    } else {
+                        mBinding.rvDishesList.visibility = View.GONE
+                        mBinding.tvNoDishesAddedYet.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
     }
 }
