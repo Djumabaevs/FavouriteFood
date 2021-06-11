@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import com.bignerdranch.android.favouritefood.model.entities.RandomDish
 import com.bignerdranch.android.favouritefood.model.network.RandomDishApiService
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.observers.DisposableSingleObserver
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RandomDishViewModel {
 
@@ -14,6 +16,30 @@ class RandomDishViewModel {
     val randomDishResponse = MutableLiveData<RandomDish.Recipes>()
     val randomDishLoadingError = MutableLiveData<Boolean>()
 
+    fun getRandomRecipeFromApi() {
+        loadRandomDish.value = true
 
+        compositeDisposable.add(
+            randomRecipeApiService.getRandomDish()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object: DisposableSingleObserver<RandomDish.Recipes>() {
+                    override fun onSuccess(value: RandomDish.Recipes?) {
+                        loadRandomDish.value = false
+                        randomDishResponse.value = value!!
+                        randomDishLoadingError.value = false
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        loadRandomDish.value = false
+                        randomDishLoadingError.value = true
+                        e!!.printStackTrace()
+                    }
+
+
+
+                })
+        )
+    }
 
 }
