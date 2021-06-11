@@ -1,6 +1,7 @@
 package com.bignerdranch.android.favouritefood.view.fragments
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.application.FavDishApplication
+import com.bignerdranch.android.favouritefood.databinding.DialogCustomListBinding
 import com.bignerdranch.android.favouritefood.databinding.FragmentAllDishesBinding
 import com.bignerdranch.android.favouritefood.model.entities.FavDish
 import com.bignerdranch.android.favouritefood.view.activities.AddUpdateDishActivity
@@ -105,6 +107,14 @@ class AllDishesFragment : Fragment() {
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
+    }
+
+    private fun filterDishesListDialog() {
+        val customListDialog = Dialog(requireActivity())
+        val binding: DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
+        customListDialog.setContentView(binding.root)
+
+
     }
 
     override fun onResume() {
