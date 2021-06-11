@@ -12,7 +12,9 @@ interface RandomDishApi {
     fun getDishes(
 
         @Query(Constants.API_KEY) apiKey: String,
-
+        @Query(Constants.LIMIT_LICENSE) limitLicense: Boolean,
+        @Query(Constants.TAGS) tags: String,
+        @Query(Constants.NUMBER) number: Int
 
     ): Single<RandomDish.Recipes>
 }
