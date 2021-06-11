@@ -64,7 +64,9 @@ private var dishes: List<FavDish> = listOf()
 
 //                    Log.i("Menu", "Edit button of ${dish.title}")
                 } else if(it.itemId == R.id.action_delete_dish) {
-
+                    if(fragment is AllDishesFragment) {
+                        fragment.delete(dish)
+                    }
 
 //                    Log.i("Menu","Delete button of ${dish.title}")
                 }

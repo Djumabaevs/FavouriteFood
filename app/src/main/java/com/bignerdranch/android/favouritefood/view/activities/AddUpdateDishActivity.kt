@@ -139,11 +139,12 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         mBinding = ActivityAddUpdateDishBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        setUpActionBar()
 
         if(intent.hasExtra(Constants.EXTRA_DISH_DETAILS)) {
             mFavDishDetails = intent.getParcelableExtra(Constants.EXTRA_DISH_DETAILS)
         }
+
+        setUpActionBar()
 
         mFavDishDetails?.let {
             if(it.id != 0) {

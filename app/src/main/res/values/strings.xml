@@ -42,5 +42,9 @@
     <string name="title_add_dish">Add Dish</string>
     <string name="title_edit_dish">Edit Dish</string>
     <string name="lbl_update_dish">UPDATE DISH</string>
+    <string name="delete_title">DELETE</string>
+    <string name="lbl_yes">YES</string>
+    <string name="lbl_no">NO</string>
+    <string name="delete_msgs">Are you sure you want to delete %1$s.</string>
 
 </resources>

@@ -1,9 +1,6 @@
 package com.bignerdranch.android.favouritefood.model.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.bignerdranch.android.favouritefood.model.entities.FavDish
 import kotlinx.coroutines.flow.Flow
 
@@ -21,5 +18,8 @@ interface FavDishDAO {
 
     @Query("SELECT * FROM FAV_DISHES_TABLE where favorite_dish = 1")
     fun getFavoriteDishList(): Flow<List<FavDish>>
+
+    @Delete
+    suspend fun deleteDish(favDish: FavDish)
 
 }
