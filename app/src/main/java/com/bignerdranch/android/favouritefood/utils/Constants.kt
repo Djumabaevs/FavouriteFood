@@ -14,6 +14,13 @@ object Constants {
     const val ALL_ITEMS: String = "ALL"
     const val FILTER_SELECTION: String = "FilterSelection"
 
+    const val API_ENDPOINT: String = "recipes/random"
+
+    const val API_KEY: String = "apiKey"
+    const val LIMIT_LICENSE: String = "limitLicense"
+    const val TAGS: String = "tags"
+    const val NUMBER: String = "number"
+
     fun dishTypes() : ArrayList<String> {
         val list = ArrayList<String>()
         list.add("breakfast")
