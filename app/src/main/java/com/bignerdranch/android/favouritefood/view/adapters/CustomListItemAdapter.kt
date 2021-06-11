@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.favouritefood.databinding.ItemCustomListBinding
 import com.bignerdranch.android.favouritefood.view.activities.AddUpdateDishActivity
+import com.bignerdranch.android.favouritefood.view.fragments.AllDishesFragment
 
 class CustomListItemAdapter(
     private val activity: Activity,
@@ -32,6 +33,9 @@ class CustomListItemAdapter(
         holder.itemView.setOnClickListener {
             if(activity is AddUpdateDishActivity) {
                 activity.selectedListItem(item, selection)
+            }
+            if(fragment is AllDishesFragment) {
+                fragment.filterSelection(item)
             }
         }
     }
