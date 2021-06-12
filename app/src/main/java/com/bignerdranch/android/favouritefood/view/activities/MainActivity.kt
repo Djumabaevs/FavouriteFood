@@ -47,5 +47,6 @@ class MainActivity : AppCompatActivity() {
     fun showBottomNavigationView() {
         mBinding.navView.clearAnimation()
         mBinding.navView.animate().translationY(0F).duration = 300
+        mBinding.navView.visibility = View.VISIBLE
     }
 }

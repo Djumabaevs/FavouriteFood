@@ -13,7 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.databinding.FragmentRandomDishBinding
+import com.bignerdranch.android.favouritefood.model.entities.FavDish
 import com.bignerdranch.android.favouritefood.model.entities.RandomDish
+import com.bignerdranch.android.favouritefood.utils.Constants
 import com.bignerdranch.android.favouritefood.viewmodel.NotificationsViewModel
 import com.bignerdranch.android.favouritefood.viewmodel.RandomDishViewModel
 import com.bumptech.glide.Glide
@@ -101,6 +103,20 @@ class RandomDishFragment : Fragment() {
         mBinding!!.tvCookingTime.text =
             resources.getString(R.string.lbl_estimate_cooking_time,
             recipe.readyInMinutes.toString())
+
+        mBinding!!.ivFavoriteDish.setOnClickListener {
+            val randomDishDetails = FavDish(
+                recipe.image,
+                Constants.DISH_IMAGE_SOURCE_ONLINE,
+                recipe.title,
+                dishType,
+                "Other",
+                ingredients,
+                recipe.readyInMinutes.toString(),
+                recipe.instructions,
+                true
+            )
+        }
     }
 
 
