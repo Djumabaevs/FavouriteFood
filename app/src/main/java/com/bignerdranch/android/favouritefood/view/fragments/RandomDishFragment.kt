@@ -64,6 +64,16 @@ class RandomDishFragment : Fragment() {
             .load(recipe.image)
             .centerCrop()
             .into(mBinding!!.ivDishImage)
+
+        mBinding!!.tvTitle.text = recipe.title
+
+        var dishType: String = "other"
+        if(recipe.dishTypes.isNotEmpty()) {
+            dishType = recipe.dishTypes[0]
+            mBinding!!.tvType.text = dishType
+        }
+
+
     }
 
 
