@@ -11,8 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.databinding.FragmentRandomDishBinding
+import com.bignerdranch.android.favouritefood.model.entities.RandomDish
 import com.bignerdranch.android.favouritefood.viewmodel.NotificationsViewModel
 import com.bignerdranch.android.favouritefood.viewmodel.RandomDishViewModel
+import com.bumptech.glide.Glide
 import kotlin.math.log
 
 class RandomDishFragment : Fragment() {
@@ -36,6 +38,8 @@ class RandomDishFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mRandomDishViewModel = ViewModelProvider(this).get(RandomDishViewModel::class.java)
         mRandomDishViewModel.getRandomRecipeFromApi()
+
+        randomDishViewModelObserver()
     }
 
     private fun randomDishViewModelObserver() {
@@ -52,8 +56,16 @@ class RandomDishFragment : Fragment() {
             {loadRandomDish -> loadRandomDish?.let {
                 Log.i("Random loading", "$loadRandomDish")
             }})
-
     }
+
+    private fun setRandomDishResponseInUI(recipe: RandomDish.Recipe) {
+        Glide
+            .with(requireActivity())
+            .load(recipe.image)
+            .centerCrop()
+            .into(mBinding!!.ivDishImage)
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
