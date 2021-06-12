@@ -9,13 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bignerdranch.android.favouritefood.R
+import com.bignerdranch.android.favouritefood.application.FavDishApplication
 import com.bignerdranch.android.favouritefood.databinding.FragmentRandomDishBinding
 import com.bignerdranch.android.favouritefood.model.entities.FavDish
 import com.bignerdranch.android.favouritefood.model.entities.RandomDish
 import com.bignerdranch.android.favouritefood.utils.Constants
+import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModel
+import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModelFactory
 import com.bignerdranch.android.favouritefood.viewmodel.NotificationsViewModel
 import com.bignerdranch.android.favouritefood.viewmodel.RandomDishViewModel
 import com.bumptech.glide.Glide
@@ -116,6 +120,10 @@ class RandomDishFragment : Fragment() {
                 recipe.instructions,
                 true
             )
+            val mFavDishViewModel : FavDishViewModel by viewModels {
+                FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
+            }
+            mFavDishViewModel.insert(randomDishDetails)
         }
     }
 
