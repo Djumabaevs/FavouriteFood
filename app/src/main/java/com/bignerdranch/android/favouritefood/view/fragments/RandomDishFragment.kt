@@ -1,6 +1,8 @@
 package com.bignerdranch.android.favouritefood.view.fragments
 
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -84,6 +86,16 @@ class RandomDishFragment : Fragment() {
             }
         }
         mBinding!!.tvIngredients.text = ingredients
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            mBinding!!.tvCookingDirection.text = Html.fromHtml(
+                recipe.instructions,
+                Html.FROM_HTML_MODE_COMPACT
+            )
+        } else {
+            @Suppress("DEPRECATION")
+            mBinding!!.tvCookingDirection.text = Html.fromHtml(recipe.instructions)
+        }
     }
 
 
