@@ -1,5 +1,6 @@
 package com.bignerdranch.android.favouritefood.view.fragments
 
+import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -31,6 +32,7 @@ class RandomDishFragment : Fragment() {
 
     private var mBinding: FragmentRandomDishBinding? = null
     private lateinit var mRandomDishViewModel: RandomDishViewModel
+    private var mProgressBar: Dialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +44,19 @@ class RandomDishFragment : Fragment() {
 
 
         return mBinding!!.root
+    }
+
+    private fun showCustomProgressDialog() {
+        mProgressBar = Dialog(requireActivity())
+        mProgressBar?.let {
+            it.setContentView(R.layout.dialog_custom_progress)
+            it.show()
+        }
+    }
+    private fun hideCustomProgressDialog() {
+        mProgressBar?.let {
+            it.dismiss()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,6 +95,11 @@ class RandomDishFragment : Fragment() {
         mRandomDishViewModel.loadRandomDish.observe(viewLifecycleOwner,
             {loadRandomDish -> loadRandomDish?.let {
                 Log.i("Random loading", "$loadRandomDish")
+                if(loadRandomDish && !mBinding!!.srlRandomDish.isRefreshing) {
+                    showCustomProgressDialog()
+                } else {
+                    hideCustomProgressDialog()
+                }
             }})
     }
 
