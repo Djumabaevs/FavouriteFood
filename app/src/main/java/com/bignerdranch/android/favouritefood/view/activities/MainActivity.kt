@@ -1,6 +1,7 @@
 package com.bignerdranch.android.favouritefood.view.activities
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     fun hideBottomNavigationView() {
         mBinding.navView.clearAnimation()
         mBinding.navView.animate().translationY(mBinding.navView.height.toFloat()).duration = 300
+        mBinding.navView.visibility = View.GONE
     }
     fun showBottomNavigationView() {
         mBinding.navView.clearAnimation()

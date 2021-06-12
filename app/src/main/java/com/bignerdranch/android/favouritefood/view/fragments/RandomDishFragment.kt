@@ -49,6 +49,7 @@ class RandomDishFragment : Fragment() {
         mRandomDishViewModel.randomDishResponse.observe(viewLifecycleOwner,
             {randomDishResponse -> randomDishResponse?.let {
                 Log.i("Random response", "${randomDishResponse.recipes[0]}")
+                setRandomDishResponseInUI(randomDishResponse.recipes[0])
             }})
         mRandomDishViewModel.randomDishLoadingError.observe(viewLifecycleOwner,
             {dataError -> dataError?.let {
@@ -96,6 +97,10 @@ class RandomDishFragment : Fragment() {
             @Suppress("DEPRECATION")
             mBinding!!.tvCookingDirection.text = Html.fromHtml(recipe.instructions)
         }
+
+        mBinding!!.tvCookingTime.text =
+            resources.getString(R.string.lbl_estimate_cooking_time,
+            recipe.readyInMinutes.toString())
     }
 
 
