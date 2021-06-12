@@ -1,6 +1,7 @@
 package com.bignerdranch.android.favouritefood.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.databinding.FragmentRandomDishBinding
 import com.bignerdranch.android.favouritefood.viewmodel.NotificationsViewModel
 import com.bignerdranch.android.favouritefood.viewmodel.RandomDishViewModel
+import kotlin.math.log
 
 class RandomDishFragment : Fragment() {
 
@@ -37,10 +39,20 @@ class RandomDishFragment : Fragment() {
     }
 
     private fun randomDishViewModelObserver() {
+
         mRandomDishViewModel.randomDishResponse.observe(viewLifecycleOwner,
             {randomDishResponse -> randomDishResponse?.let {
-
+                Log.i("Random response", "${randomDishResponse.recipes[0]}")
             }})
+        mRandomDishViewModel.randomDishLoadingError.observe(viewLifecycleOwner,
+            {dataError -> dataError?.let {
+                Log.e("Random error", "$dataError")
+            }})
+        mRandomDishViewModel.loadRandomDish.observe(viewLifecycleOwner,
+            {loadRandomDish -> loadRandomDish?.let {
+                Log.i("Random loading", "$loadRandomDish")
+            }})
+
     }
 
     override fun onDestroy() {
