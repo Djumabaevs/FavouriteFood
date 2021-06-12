@@ -33,6 +33,14 @@ class RandomDishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mRandomDishViewModel = ViewModelProvider(this).get(RandomDishViewModel::class.java)
+        mRandomDishViewModel.getRandomRecipeFromApi()
+    }
+
+    private fun randomDishViewModelObserver() {
+        mRandomDishViewModel.randomDishResponse.observe(viewLifecycleOwner,
+            {randomDishResponse -> randomDishResponse?.let {
+
+            }})
     }
 
     override fun onDestroy() {
