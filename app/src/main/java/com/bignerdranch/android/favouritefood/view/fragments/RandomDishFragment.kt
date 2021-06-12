@@ -62,11 +62,20 @@ class RandomDishFragment : Fragment() {
         mRandomDishViewModel.randomDishResponse.observe(viewLifecycleOwner,
             {randomDishResponse -> randomDishResponse?.let {
                 Log.i("Random response", "${randomDishResponse.recipes[0]}")
+
+                if(mBinding!!.srlRandomDish.isRefreshing) {
+                    mBinding!!.srlRandomDish.isRefreshing = false
+                }
+
                 setRandomDishResponseInUI(randomDishResponse.recipes[0])
             }})
         mRandomDishViewModel.randomDishLoadingError.observe(viewLifecycleOwner,
             {dataError -> dataError?.let {
                 Log.e("Random error", "$dataError")
+
+                if(mBinding!!.srlRandomDish.isRefreshing) {
+                    mBinding!!.srlRandomDish.isRefreshing = false
+                }
             }})
         mRandomDishViewModel.loadRandomDish.observe(viewLifecycleOwner,
             {loadRandomDish -> loadRandomDish?.let {
@@ -111,36 +120,52 @@ class RandomDishFragment : Fragment() {
             mBinding!!.tvCookingDirection.text = Html.fromHtml(recipe.instructions)
         }
 
+        mBinding!!.ivFavoriteDish.setImageDrawable(
+            ContextCompat.getDrawable(requireActivity(),
+                R.drawable.ic_favorite_unselected))
+
+        var addedToFavorites = false
+
+
         mBinding!!.tvCookingTime.text =
             resources.getString(R.string.lbl_estimate_cooking_time,
             recipe.readyInMinutes.toString())
 
         mBinding!!.ivFavoriteDish.setOnClickListener {
-            val randomDishDetails = FavDish(
-                recipe.image,
-                Constants.DISH_IMAGE_SOURCE_ONLINE,
-                recipe.title,
-                dishType,
-                "Other",
-                ingredients,
-                recipe.readyInMinutes.toString(),
-                recipe.instructions,
-                true
-            )
-            val mFavDishViewModel : FavDishViewModel by viewModels {
-                FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
-            }
-            mFavDishViewModel.insert(randomDishDetails)
 
-            mBinding!!.ivFavoriteDish.setImageDrawable(
-                ContextCompat.getDrawable(
-                    requireActivity(),
-                    R.drawable.ic_favorite_selected
+            if(addedToFavorites) {
+                Toast.makeText(requireActivity(),
+                resources.getString(R.string.msg_already_added_to_favorites),
+                Toast.LENGTH_SHORT).show()
+            } else {
+                val randomDishDetails = FavDish(
+                    recipe.image,
+                    Constants.DISH_IMAGE_SOURCE_ONLINE,
+                    recipe.title,
+                    dishType,
+                    "Other",
+                    ingredients,
+                    recipe.readyInMinutes.toString(),
+                    recipe.instructions,
+                    true
                 )
-            )
-            Toast.makeText(requireActivity(),
-            resources.getString(R.string.msg_added_to_favorite),
-            Toast.LENGTH_SHORT).show()
+                val mFavDishViewModel : FavDishViewModel by viewModels {
+                    FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
+                }
+                mFavDishViewModel.insert(randomDishDetails)
+
+                addedToFavorites = true
+
+                mBinding!!.ivFavoriteDish.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireActivity(),
+                        R.drawable.ic_favorite_selected
+                    )
+                )
+                Toast.makeText(requireActivity(),
+                    resources.getString(R.string.msg_added_to_favorite),
+                    Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
