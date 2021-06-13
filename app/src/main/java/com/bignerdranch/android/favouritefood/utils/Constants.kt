@@ -26,7 +26,7 @@ object Constants {
     const val API_KEY_VALUE: String = "bb87494a78704fdb8cc30d6275ee7acc"
 
     const val LIMIT_LICENSE_VALUE: Boolean  =true
-    const val TAGS_VALUE: String = "vegetarian, dessert"
+    const val TAGS_VALUE: String = "meat"
     const val NUMBER_VALUE: Int = 1
 
     fun dishTypes() : ArrayList<String> {

@@ -157,7 +157,7 @@ class DishDetailsFragment : Fragment() {
                 it.dishDetails.type.capitalize(Locale.ROOT) // Used to make first letter capital
             mBinding!!.tvCategory.text = it.dishDetails.category
             mBinding!!.tvIngredients.text = it.dishDetails.ingredients
-            mBinding!!.tvCookingDirection.text = it.dishDetails.directionsToCook
+          //  mBinding!!.tvCookingDirection.text = it.dishDetails.directionsToCook
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 mBinding!!.tvCookingDirection.text = Html.fromHtml(
