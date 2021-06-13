@@ -1,5 +1,6 @@
 package com.bignerdranch.android.favouritefood.view.fragments
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
@@ -52,7 +53,6 @@ class DishDetailsFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
 
         when(item.itemId) {
             R.id.action_share_dish -> {
@@ -83,8 +83,17 @@ class DishDetailsFragment : Fragment() {
                             "\n\n Ingredients: \n ${it.ingredients} \n\n Instructions To Cook: \n $cookingInstructions" +
                             "\n\n Time required to cook the dish approx ${it.cookingTime} minutes."
                 }
+
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = type
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+                intent.putExtra(Intent.EXTRA_TEXT, extraText)
+                startActivity(Intent.createChooser(intent, shareWith))
+
+                return true
             }
         }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateView(
