@@ -15,6 +15,7 @@ import androidx.palette.graphics.Palette
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.application.FavDishApplication
 import com.bignerdranch.android.favouritefood.databinding.FragmentDishDetailsBinding
+import com.bignerdranch.android.favouritefood.model.entities.FavDish
 import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModel
 import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModelFactory
 import com.bumptech.glide.Glide
@@ -29,6 +30,7 @@ import java.util.*
 class DishDetailsFragment : Fragment() {
 
     private var mBinding: FragmentDishDetailsBinding? = null
+    private var mFavDishDetails: FavDish? = null
 
     private val mFavDishViewModel: FavDishViewModel by viewModels {
         FavDishViewModelFactory(((requireActivity()).application as FavDishApplication).repository)
@@ -41,11 +43,23 @@ class DishDetailsFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_share, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
+
+        when(item.itemId) {
+            R.id.action_share_dish -> {
+                val type = "text/plain"
+                val subject = "Checkout this dish recipe"
+                var extraText = ""
+                val shareWith = "Share with"
+
+
+            }
+        }
     }
 
     override fun onCreateView(
@@ -60,6 +74,8 @@ class DishDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val args : DishDetailsFragmentArgs by navArgs()
+
+        mFavDishDetails = args.dishDetails
 
         args.let {
             try {
