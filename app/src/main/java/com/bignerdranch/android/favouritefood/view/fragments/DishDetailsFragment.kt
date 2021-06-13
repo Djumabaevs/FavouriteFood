@@ -1,7 +1,10 @@
 package com.bignerdranch.android.favouritefood.view.fragments
 
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
+import android.provider.SyncStateContract
+import android.text.Html
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -16,6 +19,7 @@ import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.application.FavDishApplication
 import com.bignerdranch.android.favouritefood.databinding.FragmentDishDetailsBinding
 import com.bignerdranch.android.favouritefood.model.entities.FavDish
+import com.bignerdranch.android.favouritefood.utils.Constants
 import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModel
 import com.bignerdranch.android.favouritefood.viewmodel.FavDishViewModelFactory
 import com.bumptech.glide.Glide
@@ -57,7 +61,28 @@ class DishDetailsFragment : Fragment() {
                 var extraText = ""
                 val shareWith = "Share with"
 
+                mFavDishDetails?.let {
+                    var image = ""
+                    if(it.imageSource == Constants.DISH_IMAGE_SOURCE_ONLINE) {
+                        image = it.image
+                    }
 
+                    var cookingInstructions = ""
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        cookingInstructions = Html.fromHtml(
+                            it.directionsToCook,
+                            Html.FROM_HTML_MODE_COMPACT
+                        ).toString()
+                    } else {
+                        @Suppress("DEPRECATION")
+                        cookingInstructions = Html.fromHtml(it.directionsToCook).toString()
+                    }
+
+                    extraText =  "$image \n" +
+                            "\n Title:  ${it.title} \n\n Type: ${it.type} \n\n Category: ${it.category}" +
+                            "\n\n Ingredients: \n ${it.ingredients} \n\n Instructions To Cook: \n $cookingInstructions" +
+                            "\n\n Time required to cook the dish approx ${it.cookingTime} minutes."
+                }
             }
         }
     }
