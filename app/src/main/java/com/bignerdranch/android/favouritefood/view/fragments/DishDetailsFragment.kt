@@ -158,6 +158,17 @@ class DishDetailsFragment : Fragment() {
             mBinding!!.tvCategory.text = it.dishDetails.category
             mBinding!!.tvIngredients.text = it.dishDetails.ingredients
             mBinding!!.tvCookingDirection.text = it.dishDetails.directionsToCook
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                mBinding!!.tvCookingDirection.text = Html.fromHtml(
+                    it.dishDetails.directionsToCook,
+                    Html.FROM_HTML_MODE_COMPACT
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                mBinding!!.tvCookingDirection.text = Html.fromHtml(it.dishDetails.directionsToCook).toString()
+            }
+
             mBinding!!.tvCookingTime.text =
                 resources.getString(R.string.lbl_estimate_cooking_time, it.dishDetails.cookingTime)
 
