@@ -12,8 +12,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.work.Constraints
 import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequestBuilder
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.databinding.ActivityMainBinding
+import com.bignerdranch.android.favouritefood.model.notification.NotifyWorker
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +47,9 @@ class MainActivity : AppCompatActivity() {
         .setRequiresBatteryNotLow(true)
         .build()
 
+    private fun createWorkRequest() =
+        PeriodicWorkRequestBuilder<NotifyWorker>(15, TimeUnit.MINUTES)
+            .setConstraints(createConstraints())
 
 
     override fun onSupportNavigateUp(): Boolean {
