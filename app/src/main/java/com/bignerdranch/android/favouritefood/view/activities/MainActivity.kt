@@ -10,9 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.*
 import com.bignerdranch.android.favouritefood.R
 import com.bignerdranch.android.favouritefood.databinding.ActivityMainBinding
 import com.bignerdranch.android.favouritefood.model.notification.NotifyWorker
@@ -50,6 +48,14 @@ class MainActivity : AppCompatActivity() {
     private fun createWorkRequest() =
         PeriodicWorkRequestBuilder<NotifyWorker>(15, TimeUnit.MINUTES)
             .setConstraints(createConstraints())
+            .build()
+
+    private fun startWork() {
+        WorkManager.getInstance(this)
+            .enqueueUniquePeriodicWork("FavDish Notify Work",
+            ExistingPeriodicWorkPolicy.KEEP, createWorkRequest())
+    }
+
 
 
     override fun onSupportNavigateUp(): Boolean {
