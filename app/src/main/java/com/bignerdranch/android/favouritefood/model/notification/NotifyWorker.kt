@@ -25,6 +25,9 @@ class NotifyWorker(context: Context, workerParams: WorkerParameters) :
 Worker(context, workerParams)
 {
     override fun doWork(): Result {
+
+        sendNotification()
+
         Log.i("Yes", "Worker works")
         return Result.success()
     }
@@ -83,6 +86,8 @@ Worker(context, workerParams)
         channel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
         channel.setSound(ringtoneManager, audioAttributes)
         notificationManager.createNotificationChannel(channel)
+
+        notificationManager.notify(notification_id, notification.build())
 
     }
 
